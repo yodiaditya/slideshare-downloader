@@ -1,1 +1,2 @@
 img2pdf
+beautifulsoup
