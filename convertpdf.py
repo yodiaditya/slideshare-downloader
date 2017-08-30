@@ -38,5 +38,9 @@ def convert_pdf(url):
     doc.close()
 
 if __name__ == "__main__":
-    url = raw_input('Slideshare URL : ')
+    url = raw_input('Slideshare URL: ').strip()
+    if (url.startswith("'") and url.endswith("'")) or (url.startswith('"') and url.endswith('"')):
+        url = url[1:-1]
+    if not url.startswith(('http://', 'https://')):
+        url = 'https://' + url
     download_images(url)
