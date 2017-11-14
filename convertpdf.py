@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 import os
 import img2pdf
+import re
 
 from os import listdir, walk
 from os.path import isfile, join
@@ -19,7 +20,7 @@ def download_images(url):
 
     for image in images:
         image_url = image.get('data-full').split('?')[0]
-        command = 'wget %s -P %s' % (image_url, title)
+        command = 'wget %s -P %s --no-check-certificate' % (image_url, title)
         os.system(command)
 
     convert_pdf(title)
@@ -30,6 +31,20 @@ def convert_pdf(url):
         f.extend(filenames)
         break
     f = ["%s/%s" % (url, x) for x in f]
+    
+    def atoi(text):
+        return int(text) if text.isdigit() else text
+
+    def natural_keys(text):
+        '''
+        alist.sort(key=natural_keys) sorts in human order
+        http://nedbatchelder.com/blog/200712/human_sorting.html
+        (See Toothy's implementation in the comments)
+        '''
+        return [ atoi(c) for c in re.split('(\d+)', text) ]
+
+    f.sort(key=natural_keys)
+    
     print f
 
     pdf_bytes = img2pdf.convert(f, dpi=300, x=None, y=None)
