@@ -3,6 +3,7 @@
 import sys, os
 import img2pdf
 import re
+import requests
 
 from time import localtime, strftime
 from os import listdir, walk
@@ -19,14 +20,27 @@ CURRENT = os.path.dirname(__file__)
 
 def download_images(url):
     html = urlopen(url).read()
-    soup = BeautifulSoup(html)
-    title = '_'.join(( 'pdf_images', strftime("%Y/%m/%d_%H:%M:%S", localtime()) ))  #soup.title.string
-    images = soup.findAll('img', {'class':'slide_image'})
+    soup = BeautifulSoup(html, 'html.parser')
+    title = '_'.join(( '/tmp/pdf_images', strftime("%Y/%m/%d_%H:%M:%S", localtime()) ))  #soup.title.string
+    images = soup.findAll('source', {'data-testid':'slide-image-source'})
+
+    i = 1
 
     for image in images:
-        image_url = image.get('data-full').split('?')[0]
-        command = "wget '%s' -P '%s' --no-check-certificate" % (image_url, title)
-        os.system(command)
+        image_url = image.get('srcset').split('w, ')[-1].split(' ')[0]
+
+        # command = "wget '%s' -P '%s' --no-check-certificate" % (image_url, title)
+        # os.system(command)
+        r = requests.get(image_url)
+
+        if not os.path.exists(title):
+            os.makedirs(title)
+    
+        filename = str(i) + ".jpg"
+        i += 1
+    
+        with open(title + "/"+ filename, 'wb') as f:
+            f.write(r.content)
 
     convert_pdf(title)
 
@@ -72,6 +86,7 @@ if __name__ == "__main__":
         pdf_f = "result.pdf"
     else:
         pdf_f+=".pdf"
+
     download_images(url)
 
 

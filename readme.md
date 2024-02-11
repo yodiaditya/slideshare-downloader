@@ -1,23 +1,28 @@
 # Slideshare Downloader
 
-This python script to download slide from Slideshare and converted into pdf automatically.
+Download Slideshare without login and converted into pdf with high-resolution automatically.
 
 ## How to setup
-    git clone https://github.com/limkokhole/slideshare-downloader.git
 
-    pip2 install -r requirements_py2.txt #python 2
+Make sure to have Python3
 
-    OR
+```
+git clone https://github.com/yodiaditya/slideshare-downloader.git
+pip3 install -r requirements.txt
+```
 
-    pip3 install -r requirements_py3.txt #python 3
+## How to use
 
-## How to run
-
-    python convertpdf.py [url]
-
+```
+python convertpdf.py [url]
+```
 
 Then it will asked the slideshare url if you doesn't provided [url], example url which doesn't provide download button:
 
-https://www.slideshare.net/reconvillage/rv-defcon25-how-to-obtain-100-facebook-accounts-per-day-through-internet-searches-guillermo-buendia
+Example:
 
-Original fork from https://github.com/yodiaditya/slideshare-downloader.git
+```
+python slideshare2pdf.py https://www.slideshare.net/JiangweiPan/reward-innovation-for-longterm-member-satisfaction
+```
+
+See the result: [reward_innovation_for_longterm_member_satisfaction.pdf]('reward_innovation_for_longterm_member_satisfaction.pdf')
