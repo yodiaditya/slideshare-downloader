@@ -14,7 +14,7 @@ pip3 install -r requirements.txt
 ## How to use
 
 ```
-python convertpdf.py [url]
+python slideshare2pdf.py [url]
 ```
 
 Then it will asked the slideshare url if you doesn't provided [url], example url which doesn't provide download button:
