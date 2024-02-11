@@ -25,4 +25,4 @@ Example:
 python slideshare2pdf.py https://www.slideshare.net/JiangweiPan/reward-innovation-for-longterm-member-satisfaction
 ```
 
-See the result: [reward_innovation_for_longterm_member_satisfaction.pdf]('reward_innovation_for_longterm_member_satisfaction.pdf')
+See the result: [reward_innovation_for_longterm_member_satisfaction.pdf](reward_innovation_for_longterm_member_satisfaction.pdf)
