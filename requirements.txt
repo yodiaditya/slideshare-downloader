@@ -1,3 +1,4 @@
 img2pdf
 bs4
 requests
+selenium

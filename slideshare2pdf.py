@@ -16,13 +16,43 @@ except ImportError: from BeautifulSoup import BeautifulSoup #python2
 try: input = raw_input #python2
 except NameError: pass #python3
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+import time 
+
 CURRENT = os.path.dirname(__file__)
 
+options = Options()
+
+# options.headless = True
+options.add_argument("start-maximized")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
+
+driver = webdriver.Chrome("/snap/bin/chromium.chromedriver", options=options)
+
 def download_images(url):
-    html = urlopen(url).read()
-    soup = BeautifulSoup(html, 'html.parser')
+    # html = requests.get(url).content
+    driver.get(url)
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    # modify this depend on your internet connection and the size of the slides
+    time.sleep(5)
+
+    # Get the page source after interactions
+    page_source = driver.page_source.encode('utf-8')
+
+    soup = BeautifulSoup(page_source, 'html.parser')
     title = '_'.join(( '/tmp/pdf_images', strftime("%Y/%m/%d_%H:%M:%S", localtime()) ))  #soup.title.string
     images = soup.findAll('source', {'data-testid':'slide-image-source'})
+
+    print(images)
+
+    driver.quit()
 
     i = 1
 
