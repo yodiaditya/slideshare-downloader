@@ -3,20 +3,22 @@
 Download Slideshare without login and converted into pdf with high-resolution automatically.
 
 ## Environment
-This code tested on Ubuntu 23.04 and Python 3.10. The requirement needed are
+This code tested on macOS Big Sur and Python 3.10. The requirement needed are
 
-**1. Chromium**
+**Chromium Driver**
 
-```sudo snap install chromium```
+- Download Chromium Driver [here](https://googlechromelabs.github.io/chrome-for-testing/) match with your environment (OS, Arch and Chrome Version)
+- Extract then copy to any binary path you want. ie: `/opt/local/bin/chromedriver`
+- Check permission is readable by everyone
 
-**2. Check Chromium.chromedriver is executable**
-
-```/snap/bin/chromium.chromedriver```
 
 ## Installation
 
 ```
 git clone https://github.com/yodiaditya/slideshare-downloader.git
+cd slideshare-downloader
+python -m venv venv
+source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 
