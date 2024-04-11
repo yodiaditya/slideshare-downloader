@@ -21,6 +21,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 import time 
 
@@ -32,8 +33,8 @@ options = Options()
 options.add_argument("start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-
-driver = webdriver.Chrome("/snap/bin/chromium.chromedriver", options=options)
+service = Service(executable_path=r'/opt/local/bin/chromedriver')
+driver = webdriver.Chrome(service=service, options=options)
 
 def download_images(url):
     # html = requests.get(url).content
@@ -57,7 +58,7 @@ def download_images(url):
     i = 1
 
     for image in images:
-        image_url = image.get('srcset').split('w, ')[-1].split(' ')[0]
+        image_url = image.get('data-srcset').split('w, ')[-1].split(' ')[0]
 
         # command = "wget '%s' -P '%s' --no-check-certificate" % (image_url, title)
         # os.system(command)
